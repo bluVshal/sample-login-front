@@ -38,6 +38,9 @@ const Login = () => {
     const handleSubmit = (event) =>{
         event.preventDefault();       
         setErrors(validation(values));
+        if(errors.name ==="" && errors.email ===""){
+            
+        }
     };
 
     const handleInput = (event) => {
