@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
 
@@ -38,8 +39,11 @@ const Login = () => {
     const handleSubmit = (event) =>{
         event.preventDefault();       
         setErrors(validation(values));
-        if(errors.name ==="" && errors.email ===""){
-            
+        if(errors.length === 0 ||(errors.email ==="" && errors.password ==="")){
+            console.log(values);
+            axios.post('http://localhost:65319/login', {values})
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
         }
     };
 
