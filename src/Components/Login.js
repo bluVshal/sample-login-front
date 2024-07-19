@@ -12,10 +12,10 @@ const Login = () => {
         errors:[]
     });
 
-    const Validation = (values) => {
+    const validation = (values) => {
         let error = {};
         const email_pattern = /^[^\s@]+@[^\s]+\.[^\s]+$/
-        const pass_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/
+        const pass_pattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
 
         if(values.email === ""){
             error.email = "Please enter your email"
@@ -37,7 +37,7 @@ const Login = () => {
 
     const handleSubmit = (event) =>{
         event.preventDefault();       
-        setErrors(Validation(values));
+        setErrors(validation(values));
     };
 
     const handleInput = (event) => {
