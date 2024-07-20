@@ -71,7 +71,9 @@ const Signup = () =>{
         if(errors.length === 0 ||(errors.email ==="" && errors.password ==="" && errors.password2 ==="")){
             console.log(values);
             axios.post('http://localhost:65319/signup', {values})
-            .then(res => console.log(res))
+            .then(res => {
+                console.log(res.data.message);
+            })
             .catch(err => console.log(err));
         }
     };

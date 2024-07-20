@@ -31,18 +31,18 @@ const Login = () => {
         else if(!pass_pattern.test(values.password)){
             error.password = "Please enter a valid password";
         }
-
         return error;
-
     };
 
     const handleSubmit = (event) =>{
         event.preventDefault();       
         setErrors(validation(values));
-        if(errors.length === 0 ||(errors.email ==="" && errors.password ==="")){
-            console.log(values);
+        if(errors ||(errors.email ==="" && errors.password ==="")){
             axios.post('http://localhost:65319/login', {values})
-            .then(res => console.log(res))
+            .then(res => 
+                {
+                    console.log(res.data.message);
+                })
             .catch(err => console.log(err));
         }
     };
