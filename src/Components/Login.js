@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
 
@@ -30,14 +31,20 @@ const Login = () => {
         else if(!pass_pattern.test(values.password)){
             error.password = "Please enter a valid password";
         }
-
         return error;
-
     };
 
     const handleSubmit = (event) =>{
         event.preventDefault();       
         setErrors(validation(values));
+        if(errors ||(errors.email ==="" && errors.password ==="")){
+            axios.post('http://localhost:65319/login', {values})
+            .then(res => 
+                {
+                    console.log(res.data.message);
+                })
+            .catch(err => console.log(err));
+        }
     };
 
     const handleInput = (event) => {
@@ -59,7 +66,8 @@ const Login = () => {
                         <input name='password' type='password' onInput={handleInput} placeholder='Enter Password' className='form-control rounded-0'></input>
                         <span>{errors.password && <span className='text-danger'>{errors.password}</span>}</span>
                     </div>
-                    <p> Do you agree to our terms and policies? </p>
+                    <p for='termsAgreeCheck'> Do you agree to our terms and policies? </p>
+                    <input class="form-check-input" type="checkbox" value="" id="termsAgreeCheck" checked></input>
                     <button type="submit" onClick={handleSubmit} className='btn btn-success w-100'><u>L</u>og In</button>
                     <p> Are you new here? Create your account</p>
                     <Link to='/signup' className='btn btn-primary border w-100'><u>C</u>reate Account</Link>
